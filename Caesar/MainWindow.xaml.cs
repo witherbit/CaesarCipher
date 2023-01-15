@@ -36,9 +36,9 @@ namespace Caesar
 
         private void button_Encrypt_Click(object sender, RoutedEventArgs e) // событие, при нажатии на кнопку Encrypt
         {
-            if (!BlockIfNotReady())
-                return;
-            CipherText = PlainText.CesarCryptoProvider(Offset, Alphabet);
+            if (!BlockIfNotReady()) // проверка текстовых полей, чтобы небыло ошибок
+                return;             // если проверка не пройдена, пропускаем действие
+            CipherText = PlainText.CesarCryptoProvider(Offset, Alphabet); // шифруем открытый текст
             BlockIfNotReady();
         }
 
@@ -46,11 +46,11 @@ namespace Caesar
         {
             if (!BlockIfNotReady())
                 return;
-            PlainText = CipherText.CesarCryptoProvider(Offset, Alphabet, true);
+            PlainText = CipherText.CesarCryptoProvider(Offset, Alphabet, true); // дешифруем закрытый текст
             BlockIfNotReady();
         }
 
-        private bool BlockIfNotReady()
+        private bool BlockIfNotReady() // проверки на пустоту в текстовых полях, иначе программа будет выдавать ошибку, если одно из важных полей не будет заполнено
         {
             button_Decrypt.IsEnabled = false;
             button_Encrypt.IsEnabled = false;
@@ -66,12 +66,12 @@ namespace Caesar
             return true;
         }
 
-        private void check_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void check_PreviewKeyDown(object sender, KeyEventArgs e) // событие, происходящее при вводе любой клавиши в любое текстовое поле.
         {
-            BlockIfNotReady();
+            BlockIfNotReady(); // у нас + автоматическая проверка
         }
 
-        private void button_Analyze_Click(object sender, RoutedEventArgs e)
+        private void button_Analyze_Click(object sender, RoutedEventArgs e) // кнопка, открывающая диалоговое окно с анализатором криптограммы, работает по типу брутфорса (метод перебора)
         {
             if (!BlockIfNotReady())
                 return;

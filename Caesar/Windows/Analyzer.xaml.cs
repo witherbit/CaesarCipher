@@ -31,13 +31,13 @@ namespace Caesar.Windows
             Bruteforce();
         }
 
-        private void Bruteforce()
+        private void Bruteforce() // метод перебора значений, который выводит элементы на интерфейс
         {
-            Offset = -1;
-            for(int i = 0; i < Alphabet.Length; i++)
+            Offset = -1;                                                                        // стандартное значение для ключа.
+            for (int i = 0; i < Alphabet.Length; i++)                                           // цикл с перебором всех сдвигов по длине алфавита
             {
-                var plainText = CipherText.CesarCryptoProvider(i.ToString(), Alphabet, true);
-                stackPanel_CipherText.Children.Add(CreateButton(CipherText, false));
+                var plainText = CipherText.CesarCryptoProvider(i.ToString(), Alphabet, true);   // расшифровываем текст и пихаем в интерфейс
+                stackPanel_CipherText.Children.Add(CreateButton(CipherText, false));            // с эти то же самое, только просто кидаем исходные варианты на интерфейс
                 stackPanel_Offset.Children.Add(CreateButton(i.ToString()));
                 stackPanel_PlainText.Children.Add(CreateButton(plainText, false));
             }
@@ -55,7 +55,7 @@ namespace Caesar.Windows
                 Background = Brushes.Transparent,
                 IsEnabled = isEnabled,
             };
-            button.Click += (sender, e) =>
+            button.Click += (sender, e) => // событие при нажатии кнопки со значением offset, которое передает значения в основное окно программы
             {
                 var btn = sender as Button;
                 Offset = int.Parse(btn.Content as string);
